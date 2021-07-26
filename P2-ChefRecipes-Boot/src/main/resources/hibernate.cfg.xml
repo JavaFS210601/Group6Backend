@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Author: Justin Wallace -->
+<!-- Date: 7/24/2021 -->
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+       <hibernate-configuration>
+       	<session-factory>
+       		<property name="hibernate.connection.username">postgres</property>
+       		<property name="hibernate.connection.password">1JWall670581</property>
+       		<property name="hibernate.connection.url">jdbc:postgresql://p2-recipe-creator.cen4ygabfg2t.us-east-2.rds.amazonaws.com:5432/postgres?currentSchema=p2_user_recipes</property>
+       		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+       		
+       		
+       		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+       		<property name="hibernate.default_schema">p2_user_recipes</property>
+       		
+       		<property name="hibernate.show_sql">true</property>
+       		<property name="hibernate.driver_class">true</property>
+       		
+       		<property name="hibernate.hbm2ddl.auto">create</property>
+       		
+       		
+       		
+       		
+       		<mapping class="com.revature.models.database.UserRoles"/>
+       		<mapping class="com.revature.models.database.Users"/>
+       		<mapping class="com.revature.models.database.Recipes"/>
+       		<mapping class="com.revature.models.database.Ingrediants"/>
+       		<mapping class="com.revature.models.database.Steps"/>
+       		<mapping class="com.revature.models.database.associations.RecipeIngrediants"/>
+       		<mapping class="com.revature.models.database.associations.RecipeSteps"/>
+       		<!-- we will be using diferrent mappings -->
+       		<!--<mapping class="com.revature.three_database.models.Users"/>
+       		<mapping class="com.revature.three_database.models.Reimbursement"/>-->
+       		
+       		
+       	</session-factory>
+       </hibernate-configuration> 
