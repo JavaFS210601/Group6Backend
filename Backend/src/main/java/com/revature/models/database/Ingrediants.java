@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.revature.models.database.associations.RecipeIngediants;
+import com.revature.models.database.associations.RecipeIngrediants;
 
 @Entity
 @Table(name= "ingrediants")
@@ -28,8 +28,8 @@ public class Ingrediants {
 	private String ammount;
 	
 	//list of ingrediants mapped to association table recipe_ingediants
-	@OneToMany(mappedBy = "ingrediant", targetEntity = RecipeIngediants.class)
-	private List<RecipeIngediants> recipeIngrediants;
+	@OneToMany(mappedBy = "ingrediant", targetEntity = RecipeIngrediants.class)
+	private List<RecipeIngrediants> recipeIngrediants;
 
 	
 	
@@ -39,7 +39,7 @@ public class Ingrediants {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Ingrediants(String ingrediant, String ammount, List<RecipeIngediants> recipeIngrediants) {
+	public Ingrediants(String ingrediant, String ammount, List<RecipeIngrediants> recipeIngrediants) {
 		super();
 		this.ingrediant = ingrediant;
 		this.ammount = ammount;
@@ -116,11 +116,11 @@ public class Ingrediants {
 		this.ammount = ammount;
 	}
 
-	public List<RecipeIngediants> getRecipeIngrediants() {
+	public List<RecipeIngrediants> getRecipeIngrediants() {
 		return recipeIngrediants;
 	}
 
-	public void setRecipeIngrediants(List<RecipeIngediants> recipeIngrediants) {
+	public void setRecipeIngrediants(List<RecipeIngrediants> recipeIngrediants) {
 		this.recipeIngrediants = recipeIngrediants;
 	}
 	

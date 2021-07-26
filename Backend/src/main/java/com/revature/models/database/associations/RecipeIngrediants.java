@@ -13,7 +13,7 @@ import com.revature.models.database.associations.embeddables.RecipeIngediantsKey
 
 @Entity
 @Table(name= "recipe_ingrediants")
-public class RecipeIngediants {
+public class RecipeIngrediants {
 	
 	@EmbeddedId
 	RecipeIngediantsKey compositeId;
@@ -30,12 +30,12 @@ public class RecipeIngediants {
 
 	
 	//boiler plate
-	public RecipeIngediants() {
+	public RecipeIngrediants() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public RecipeIngediants(RecipeIngediantsKey compositeId, Ingrediants ingrediant, Recipes recipe) {
+	public RecipeIngrediants(RecipeIngediantsKey compositeId, Ingrediants ingrediant, Recipes recipe) {
 		super();
 		this.compositeId = compositeId;
 		this.ingrediant = ingrediant;
@@ -66,7 +66,7 @@ public class RecipeIngediants {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RecipeIngediants other = (RecipeIngediants) obj;
+		RecipeIngrediants other = (RecipeIngrediants) obj;
 		if (compositeId == null) {
 			if (other.compositeId != null)
 				return false;

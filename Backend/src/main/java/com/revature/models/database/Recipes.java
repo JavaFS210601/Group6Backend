@@ -6,13 +6,16 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.revature.models.database.associations.RecipeIngediants;
+import com.revature.models.database.associations.RecipeIngrediants;
 import com.revature.models.database.associations.RecipeSteps;
 
 //database model for the recipes 
@@ -42,9 +45,14 @@ public class Recipes {
 	@Column(name = "insiration")
 	private String inspiration;
 	
+	//for key column referencing role_id in user_roles table
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Users.class)
+	@JoinColumn(name = "user_id")
+	private int user_id;
+	
 	//list of ingrediants mapped to association table recipe_ingediants
-	@OneToMany(mappedBy = "recipe", targetEntity = RecipeIngediants.class)
-	private List<RecipeIngediants> recipeIngrediants;
+	@OneToMany(mappedBy = "recipe", targetEntity = RecipeIngrediants.class)
+	private List<RecipeIngrediants> recipeIngrediants;
 	
 	//list of recipe steps mapped to association table recipe_steps
 	@OneToMany(mappedBy = "recipe", targetEntity = RecipeSteps.class)
@@ -59,7 +67,7 @@ public class Recipes {
 	}
 
 	public Recipes(String name, String description, String category, String inspiration,
-			List<RecipeIngediants> recipeIngrediants, List<RecipeSteps> recipeSteps) {
+			List<RecipeIngrediants> recipeIngrediants, List<RecipeSteps> recipeSteps) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -174,11 +182,11 @@ public class Recipes {
 		this.inspiration = inspiration;
 	}
 
-	public List<RecipeIngediants> getRecipeIngrediants() {
+	public List<RecipeIngrediants> getRecipeIngrediants() {
 		return recipeIngrediants;
 	}
 
-	public void setRecipeIngrediants(List<RecipeIngediants> recipeIngrediants) {
+	public void setRecipeIngrediants(List<RecipeIngrediants> recipeIngrediants) {
 		this.recipeIngrediants = recipeIngrediants;
 	}
 
