@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.daos.UserDAO;
-import com.revature.models.User;
+import com.revature.models.database.Users;
 import com.revature.services.UserService;
 
 @RestController //This annotation does everything @Controller and @ResponseBody do. Convenient!
@@ -39,16 +39,16 @@ public class UserController {
 	
 	@RequestMapping(method=RequestMethod.GET) //Ensures that and GET requests to /Users uses this method
 	//@ResponseBody //This will parse any Java object into JSON to send back as the response
-	public List<User> getAllUser() {
+	public List<Users> getAllUser() {
 		return Arrays.asList(service.getAll()); //we're returning the array that gets returned, but as a list
 	}
 	
 	@GetMapping("/{id}") //GetMapping will specify that GET requests with this endpoint go here
 	//@PathVariable allows you to get the path variable you specified in the mapping
 	//Spring has an Class called ResponseEntity that lets us set things like the status code of our response
-	public ResponseEntity<User> getOneUser(@PathVariable("id") int id) {
+	public ResponseEntity<Users> getOneUser(@PathVariable("id") int id) {
 		
-		User a = service.getById(id);
+		Users a = service.getById(id);
 		
 		if(a==null) {
 			//Returning a ResponseEntity with an empty body with a no content status code
@@ -62,7 +62,7 @@ public class UserController {
 	
 	@PutMapping //PutMapping will specify that PUT requests with this endpoint go here
 												//@RequestBody turns the incoming JSON into Java
-	public ResponseEntity<User> updateUser(@RequestBody User a){
+	public ResponseEntity<Users> updateUser(@RequestBody Users a){
 		a = service.update(a);
 		if(a==null) {
 			//If an invalid User is sent, return a ResponseEntity with an empty body with a no content status code
