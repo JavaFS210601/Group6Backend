@@ -22,12 +22,17 @@
        		<property name="hibernate.hbm2ddl.auto">create</property>
        		
        		
-       		<!-- we will be using diferrent mappings -->
        		
-       		<!--<mapping class="com.revature.three_database.models.UserRoles"/>
-       		<mapping class="com.revature.three_database.models.ReimbursementStatus"/>
-       		<mapping class="com.revature.three_database.models.ReimbursementType"/>
-       		<mapping class="com.revature.three_database.models.Users"/>
+       		
+       		<mapping class="com.revature.models.database.UserRoles"/>
+       		<mapping class="com.revature.models.database.Users"/>
+       		<mapping class="com.revature.models.database.Recipes"/>
+       		<mapping class="com.revature.models.database.Ingrediants"/>
+       		<mapping class="com.revature.models.database.Steps"/>
+       		<mapping class="com.revature.models.database.associations.RecipeIngrediants"/>
+       		<mapping class="com.revature.models.database.associations.RecipeSteps"/>
+       		<!-- we will be using diferrent mappings -->
+       		<!--<mapping class="com.revature.three_database.models.Users"/>
        		<mapping class="com.revature.three_database.models.Reimbursement"/>-->
        		
        		
