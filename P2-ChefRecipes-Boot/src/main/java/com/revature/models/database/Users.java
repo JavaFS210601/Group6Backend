@@ -42,7 +42,7 @@ public class Users {
 	private String last_name;
 	
 	//for key column referencing role_id in user_roles table
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserRoles.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = UserRoles.class)
 	@JoinColumn(name = "role_id")
 	private UserRoles role_id;
 	
