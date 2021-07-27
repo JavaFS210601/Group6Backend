@@ -2,6 +2,8 @@
 //Date: 7/24/2021
 package com.revature.models.database;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,9 +44,7 @@ public class Users {
 	//for key column referencing role_id in user_roles table
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = UserRoles.class)
 	@JoinColumn(name = "role_id")
-	private int role_id;
-	
-	
+	private UserRoles role_id;
 	
 	//boilerplate
 	public Users() {
@@ -52,7 +52,7 @@ public class Users {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Users(String username, String password, String first_name, String last_name, int role_id) {
+	public Users(String username, String password, String first_name, String last_name, UserRoles role_id) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -60,6 +60,8 @@ public class Users {
 		this.last_name = last_name;
 		this.role_id = role_id;
 	}
+	
+	
 
 	@Override
 	public String toString() {
@@ -67,17 +69,11 @@ public class Users {
 				+ first_name + ", last_name=" + last_name + ", role_id=" + role_id + "]";
 	}
 
+	
+
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((first_name == null) ? 0 : first_name.hashCode());
-		result = prime * result + ((last_name == null) ? 0 : last_name.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + role_id;
-		result = prime * result + user_id;
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
-		return result;
+		return Objects.hash(first_name, last_name, password, role_id, user_id, username);
 	}
 
 	@Override
@@ -89,31 +85,9 @@ public class Users {
 		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
-		if (first_name == null) {
-			if (other.first_name != null)
-				return false;
-		} else if (!first_name.equals(other.first_name))
-			return false;
-		if (last_name == null) {
-			if (other.last_name != null)
-				return false;
-		} else if (!last_name.equals(other.last_name))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (role_id != other.role_id)
-			return false;
-		if (user_id != other.user_id)
-			return false;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
-		return true;
+		return Objects.equals(first_name, other.first_name) && Objects.equals(last_name, other.last_name)
+				&& Objects.equals(password, other.password) && Objects.equals(role_id, other.role_id)
+				&& user_id == other.user_id && Objects.equals(username, other.username);
 	}
 
 	public int getUser_id() {
@@ -152,13 +126,18 @@ public class Users {
 		this.last_name = last_name;
 	}
 
-	public int getRole_id() {
+	public UserRoles getRole_id() {
 		return role_id;
 	}
 
-	public void setRole_id(int role_id) {
+	public void setRole_id(UserRoles role_id) {
 		this.role_id = role_id;
 	}
-	
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
+
 	
 }
