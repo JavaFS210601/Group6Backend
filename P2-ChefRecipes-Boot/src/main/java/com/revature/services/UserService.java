@@ -39,12 +39,13 @@ public class UserService {
 	}
 	
 	public Users getById(int id) {
-		return dao.getById(id);
+		return userDAO.findById(id).get();
+	
 	}
 	
-	public Users update(Users a) {
-		return dao.update(a);
-	}
+//	public Users update(Users a) {
+//		return userDAO.;
+//	}
 
 
 	public List<Users> findAllUser() {
