@@ -89,9 +89,10 @@ public class UserController {
 	//@ResponseBody //This will parse any Java object into JSON to send back as the response
 	public List<Users> getAllUser() {
 		
-		dbInit();
+		//dbInit();
 		
-		return Arrays.asList(service.getAll()); //we're returning the array that gets returned, but as a list
+		//return Arrays.asList(service.getAll()); //we're returning the array that gets returned, but as a list
+		return  service.findAllUser();
 	}
 	
 	@GetMapping("/{id}") //GetMapping will specify that GET requests with this endpoint go here
