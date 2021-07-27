@@ -102,7 +102,7 @@ public class UserController {
 		
 				
 		Users a = service.getById(id);
-		
+		System.out.println(a);
 		if(a==null) {
 			//Returning a ResponseEntity with an empty body with a no content status code
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); //build is for when we send nothing back
