@@ -9,7 +9,7 @@
        	<session-factory>
        		<property name="hibernate.connection.username">postgres</property>
        		<property name="hibernate.connection.password">1JWall670581</property>
-       		<property name="hibernate.connection.url">jdbc:postgresql://p2-recipe-creator.cen4ygabfg2t.us-east-2.rds.amazonaws.com:5432/postgres?currentSchema=p2_user_recipes</property>
+       		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres?currentSchema=p2_user_recipes</property>
        		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
        		
        		
