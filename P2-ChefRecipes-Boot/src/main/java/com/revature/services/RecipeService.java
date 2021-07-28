@@ -28,5 +28,7 @@ public class RecipeService {
 		List<Recipes> userRecipes = recipesDAO.getUserResipes(id);
 		return userRecipes;
 	}
+	
+	
 
 }

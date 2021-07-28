@@ -45,16 +45,16 @@ public class UserController {
 	}
 	
 	public void dbInit(){
-		UserRoles role = new UserRoles("client");
-		
-		// save the role using jpa 
-		UserRoles userRole = roleService.saveRole(role);
-		
-		System.out.println(userRole);
+//		UserRoles role = new UserRoles("client");
+//		
+//		// save the role using jpa 
+//		UserRoles userRole = roleService.saveRole(role);
+//		
+//		System.out.println(userRole);
 		
 		
 		//populate the db
-		//UserRoles role = roleService.findRoleById(1);
+		UserRoles role = roleService.findRoleById(1);
 		Users user = new Users( "User3", "Very Patriotic", "Steve", "Rogers", role );
 		Users retUser = service.saveUser( user);
 		System.out.println(retUser);
@@ -90,7 +90,7 @@ public class UserController {
 	public List<Users> getAllUser() {
 		
 		//dbInit();
-		
+		//updateUserFirstname();
 		//return Arrays.asList(service.getAll()); //we're returning the array that gets returned, but as a list
 		return  service.findAllUser();
 	}
@@ -113,17 +113,26 @@ public class UserController {
 		
 	}
 	
+//	@GetMapping("/update ")
+//	public void updateUserFirstname(@RequestParam(name = "id")  int id, @RequestParam("name") String name) {
+//		
+//		
+//		service.updateUserFirstname(3, name);
+//	}
+	
 	@PutMapping //PutMapping will specify that PUT requests with this endpoint go here
 												//@RequestBody turns the incoming JSON into Java
 	public ResponseEntity<Users> updateUser(@RequestBody Users a){
-		a = service.update(a);
-		if(a==null) {
+		//a = service.update(a);
+		
+		
+		if(!service.updateUserFirstname(a.getUser_id(), a.getUsername())) {
 			//If an invalid User is sent, return a ResponseEntity with an empty body with a no content status code
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); //build is for when we send nothing back
 		} 
 		
 		//If a valid User is sent, send it back in the body of the response, and 200 status code
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(a); //body is for when you send something back
+		return ResponseEntity.status(HttpStatus.ACCEPTED).build(); //body is for when you send something back
 	}
 	
 	
