@@ -21,6 +21,6 @@ public interface UserDAOInterface extends JpaRepository<Users, Integer> {
 	 */
 	@Transactional
 	@Modifying(flushAutomatically = true)
-	@Query("UPDATE Users AS u SET u.username = :value WHERE u.user_id= :id")
+	@Query("UPDATE Users AS u SET u.username = :value WHERE u.userId= :id")
 	public void updateUserFirstname( @Param("id") int id, @Param("value") String username) ;
 }
