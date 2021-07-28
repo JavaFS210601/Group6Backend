@@ -126,7 +126,7 @@ public class UserController {
 		//a = service.update(a);
 		
 		
-		if(!service.updateUserFirstname(a.getUser_id(), a.getUsername())) {
+		if(!service.updateUserFirstname(a.getUserId(), a.getUsername())) {
 			//If an invalid User is sent, return a ResponseEntity with an empty body with a no content status code
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); //build is for when we send nothing back
 		} 
