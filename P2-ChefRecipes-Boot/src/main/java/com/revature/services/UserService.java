@@ -54,6 +54,19 @@ public class UserService {
 	}
 
 
+	public boolean updateUserFirstname(int id, String firstname) {
+		
+		userDAO.updateUserFirstname(id, firstname);
+		Optional<Users> user = userDAO.findById(id);
+		if (user != null) {
+			return true;
+		} else  {
+			return false;
+		}
+		
+	}
+
+
 //	public Optional<List<Users>> findUserByUsernameAndPassword(String username, String password) {
 //		// TODO Auto-generated method stub
 //		return userDAO.findByUsernameAndPassword();
