@@ -38,11 +38,11 @@ public class UserDAO {
 	}
 	
 	public Users update(Users a) {
-		if(a.getUser_id()>team.length||a.getUser_id()<1){
+		if(a.getUserId()>team.length||a.getUserId()<1){
 			return null;
 		} else {
-			team[a.getUser_id()-1] = a;
-			return getById(a.getUser_id());
+			team[a.getUserId()-1] = a;
+			return getById(a.getUserId());
 		}
 		
 	}

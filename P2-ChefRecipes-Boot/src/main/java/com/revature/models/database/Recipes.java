@@ -53,7 +53,7 @@ public class Recipes {
 	//for key column referencing role_id in user_roles table
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Users.class)
 	@JoinColumn(name = "user_id")
-	private Users user_id;
+	private Users userId;
 	
 	//list of ingrediants mapped to association table recipe_ingediants
 	@OneToMany(mappedBy = "recipe", targetEntity = RecipeIngrediants.class)

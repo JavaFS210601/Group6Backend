@@ -7,17 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.daos.RecipesDAOInterface;
+import com.revature.daos.UserDAOInterface;
 import com.revature.models.database.Recipes;
+import com.revature.models.database.Users;
 
 @Service
 public class RecipeService {
 	
 	private RecipesDAOInterface recipesDAO;
+	private UserDAOInterface userDAO;
 	
 	@Autowired
-	public RecipeService(RecipesDAOInterface recipesDAO) {
+	public RecipeService(RecipesDAOInterface recipesDAO, UserDAOInterface userDAO) {
 		super();
 		this.recipesDAO = recipesDAO;
+		this.userDAO = userDAO;
 	}
 
 	public List<Recipes> getAllRecipes() {
@@ -28,7 +32,9 @@ public class RecipeService {
 	
 
 	public List<Recipes> getUserRecipes(int id) {
-		Optional<List<Recipes>> userRecipes = recipesDAO.findById(id);
+		
+		Users user = userDAO.findById(id).get();
+		Optional<List<Recipes>> userRecipes = recipesDAO.findByUserId(user);
 		
 		List<Recipes> recipeList = null;
 		if(userRecipes.isPresent()) {
