@@ -116,7 +116,7 @@ public class UserController {
 	@PutMapping //PutMapping will specify that PUT requests with this endpoint go here
 												//@RequestBody turns the incoming JSON into Java
 	public ResponseEntity<Users> updateUser(@RequestBody Users a){
-		a = service.update(a);
+	//	a = service.update(a);
 		if(a==null) {
 			//If an invalid User is sent, return a ResponseEntity with an empty body with a no content status code
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); //build is for when we send nothing back
