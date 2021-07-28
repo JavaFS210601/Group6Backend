@@ -10,9 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.revature.models.database.associations.RecipeSteps;
 
 @Entity
+@JsonIdentityInfo(
+		generator = ObjectIdGenerators.PropertyGenerator.class, 
+		property = "step_id")
 @Table(name= "steps")
 public class Steps {
 
@@ -23,7 +28,7 @@ public class Steps {
 	
 	@Column(name = "step")
 	private String step;
-	
+	//
 	//list of recipe steps mapped to association table recipe_steps
 	@OneToMany(mappedBy = "step", targetEntity = RecipeSteps.class)
 	private List<RecipeSteps> recipeSteps;

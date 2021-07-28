@@ -37,11 +37,14 @@ public class RecipeController {
 		
 		List<Recipes> userRecipes = service.getUserRecipes(id);
 		
-		if(userRecipes == null) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		
+		if(userRecipes != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(userRecipes);
+			
 		}
 		
-		return ResponseEntity.status(HttpStatus.OK).body(userRecipes);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		
 	}
 	
 	

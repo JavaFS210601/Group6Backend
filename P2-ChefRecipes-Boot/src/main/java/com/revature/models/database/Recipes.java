@@ -15,11 +15,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.revature.models.database.associations.RecipeIngrediants;
 import com.revature.models.database.associations.RecipeSteps;
 
 //database model for the recipes 
 @Entity
+@JsonIdentityInfo(
+		generator = ObjectIdGenerators.PropertyGenerator.class, 
+		property = "recipe_id")
 @Table(name = "recipes")
 public class Recipes {
 	
@@ -48,7 +53,7 @@ public class Recipes {
 	//for key column referencing role_id in user_roles table
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Users.class)
 	@JoinColumn(name = "user_id")
-	private int user_id;
+	private Users user_id;
 	
 	//list of ingrediants mapped to association table recipe_ingediants
 	@OneToMany(mappedBy = "recipe", targetEntity = RecipeIngrediants.class)
