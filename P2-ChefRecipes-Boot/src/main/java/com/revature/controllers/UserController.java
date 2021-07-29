@@ -2,6 +2,7 @@ package com.revature.controllers;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,7 +63,32 @@ public class UserController {
 		//return ResponseEntity.status(HttpStatus.ACCEPTED).body(insertedUser);
 	}
 	
-//	@RequestMapping(method=RequestMethod.POST)
+	@PostMapping("/register")
+	public ResponseEntity<Users> registerUser( @RequestBody Users a ) {
+//		
+		try {
+			service.saveUser(a);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(a);
+		} catch(NoSuchElementException e) {
+				//return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
+	
+	@PostMapping("/authenticate")
+	public ResponseEntity<Users> loginWithUsernameAndPassword(@RequestParam String username, @RequestParam String password) {
+		System.out.println(username + " " + password);
+		Users user = new Users();
+		try { 
+			user = service.findUserByUsernameAndPassword(username,  password).get();
+			System.out.println("the user  " + user);
+		} catch(NoSuchElementException e) {
+			System.out.println("the user  " + user);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(user);
+	}
+	
 //	public ResponseEntity<List<Users>> findUserByUsernameAndPasword(@RequestParam String username , @RequestParam String password) {
 //		
 //		Optional<List<Users>> opt = service.findUserByUsernameAndPassword(username, password);
@@ -76,13 +103,7 @@ public class UserController {
 //		
 //	}
 	
-	//@RequestMapping(method=RequestMethod.POST)
-	//@PostMapping
-	public ResponseEntity<Users> insertUser(Users user){
-		Users insertedUser = service.saveUser(user);
-		
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(insertedUser);
-	}
+	
 	
 	
 	@RequestMapping(method=RequestMethod.GET) //Ensures that and GET requests to /Users uses this method
@@ -113,12 +134,7 @@ public class UserController {
 		
 	}
 	
-//	@GetMapping("/update ")
-//	public void updateUserFirstname(@RequestParam(name = "id")  int id, @RequestParam("name") String name) {
-//		
-//		
-//		service.updateUserFirstname(3, name);
-//	}
+
 	
 	@PutMapping //PutMapping will specify that PUT requests with this endpoint go here
 												//@RequestBody turns the incoming JSON into Java
@@ -135,6 +151,17 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build(); //body is for when you send something back
 	}
 	
+	@DeleteMapping(value="/delete/{id}")
+	public ResponseEntity<Users> deleteUser(@PathVariable  int id) {
+		Users a = service.getById(id);
+		System.out.println(a);
+		if (service.deleteUser(a)) {
+		
+			return ResponseEntity.status(HttpStatus.OK).body(a);
+		} else {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
+	}
 	
 	
 }
