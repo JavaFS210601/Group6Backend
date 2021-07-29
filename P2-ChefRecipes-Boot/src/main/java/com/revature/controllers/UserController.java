@@ -64,14 +64,15 @@ public class UserController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<Users> registerUser(Users a ) {
-		Users existingUser = service.findUserByUsernameAndPassword(a.getUsername(), a.getPassword()).get();
-		if (existingUser != null) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		} else {
+	public ResponseEntity<Users> registerUser( @RequestBody Users a ) {
+//		
+		try {
 			service.saveUser(a);
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(a);
+		} catch(NoSuchElementException e) {
+				//return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
 	@PostMapping("/authenticate")
