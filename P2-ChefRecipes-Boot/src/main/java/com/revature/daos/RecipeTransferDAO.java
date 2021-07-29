@@ -1,27 +1,22 @@
 package com.revature.daos;
 
-import java.util.List;
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
-import com.revature.models.database.Ingrediants;
 import com.revature.models.database.Recipes;
-import com.revature.models.database.Steps;
 import com.revature.models.database.Users;
 import com.revature.models.dtos.RecipeDTO;
 
-@Repository
-public interface RecipesDAOInterface extends JpaRepository<Recipes, Integer> {
-	Optional<List<Recipes>> findByUserId(Users user);
+public interface RecipeTransferDAO extends JpaRepository<RecipeDTO, Integer> {
 	
-	boolean save(List<Ingrediants> ingrediant);
+	@Transactional
+	//@Modifying(flushAutomatically = true)
+	@Query(value ="INSERT INTO recipes (name, description, category, inspiration, user_id)"
+			+ " VALUES(?1, ?2, ?3, ?4, ?5)", nativeQuery = true)
+	Recipes save(@Param("1") String name, @Param("2") String description, @Param("3") String category, @Param("4") String inspiration, @Param("5") int id);
 
 }
-
