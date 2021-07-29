@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import com.revature.daos.RoleDAOInterface;
@@ -64,6 +66,36 @@ public class UserService {
 			return false;
 		}
 		
+	}
+
+
+	public boolean deleteUser(Users user) {
+		try {
+			userDAO.delete(user);
+			return true;
+		} catch(IllegalArgumentException e) {
+			
+		}
+		return false;
+	}
+
+
+	public Optional<Users> findUserByUsernameAndPassword(String username, String password) {
+		
+		Users user = new Users();
+		user.setUsername(username);
+		user.setPassword(password);
+		
+		//ExampleMatcher caseInsensitiveExampleMatcher = ExampleMatcher.matchingAll().withIgnoreCase();
+		ExampleMatcher customExampleMatcher = ExampleMatcher.matchingAny()
+			      .withMatcher("username", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+			      .withMatcher("password", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+		Example<Users> example = Example.of(user, customExampleMatcher);
+
+		// find one with example user with only username and password
+		Optional<Users> actual = userDAO.findOne(example);
+
+		return actual;
 	}
 
 
