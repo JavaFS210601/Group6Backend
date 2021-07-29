@@ -17,14 +17,14 @@ import com.revature.models.database.associations.RecipeIngrediants;
 @Entity
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class, 
-		property = "ingrediante_id")
+		property = "ingrediant_id")
 @Table(name= "ingrediants")
 public class Ingrediants {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ingrediant_id")
-	private int ingrediante_id;
+	private int ingrediant_id;
 	
 	@Column(name = "ingrediant")
 	private String ingrediant;
@@ -53,7 +53,7 @@ public class Ingrediants {
 
 	@Override
 	public String toString() {
-		return "Ingrediants [ingrediante_id=" + ingrediante_id + ", ingrediant=" + ingrediant + ", ammount=" + ammount
+		return "Ingrediants [ingrediante_id=" + ingrediant_id + ", ingrediant=" + ingrediant + ", ammount=" + ammount
 				+ ", recipeIngrediants=" + recipeIngrediants + "]";
 	}
 
@@ -63,7 +63,7 @@ public class Ingrediants {
 		int result = 1;
 		result = prime * result + ((ammount == null) ? 0 : ammount.hashCode());
 		result = prime * result + ((ingrediant == null) ? 0 : ingrediant.hashCode());
-		result = prime * result + ingrediante_id;
+		result = prime * result + ingrediant_id;
 		result = prime * result + ((recipeIngrediants == null) ? 0 : recipeIngrediants.hashCode());
 		return result;
 	}
@@ -87,7 +87,7 @@ public class Ingrediants {
 				return false;
 		} else if (!ingrediant.equals(other.ingrediant))
 			return false;
-		if (ingrediante_id != other.ingrediante_id)
+		if (ingrediant_id != other.ingrediant_id)
 			return false;
 		if (recipeIngrediants == null) {
 			if (other.recipeIngrediants != null)
@@ -98,11 +98,11 @@ public class Ingrediants {
 	}
 
 	public int getIngrediante_id() {
-		return ingrediante_id;
+		return ingrediant_id;
 	}
 
 	public void setIngrediante_id(int ingrediante_id) {
-		this.ingrediante_id = ingrediante_id;
+		this.ingrediant_id = ingrediante_id;
 	}
 
 	public String getIngrediant() {

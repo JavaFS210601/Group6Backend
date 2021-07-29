@@ -11,10 +11,6 @@ public class P2ChefRecipesBootApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(P2ChefRecipesBootApplication.class, args);
-		
-		Users user = new Users();
-		
-		System.out.println(user);
 
 	}
 
