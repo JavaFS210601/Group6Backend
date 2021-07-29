@@ -47,7 +47,7 @@ public class Recipes {
 	private String category;
 	
 	//column for inspiration
-	@Column(name = "insiration")
+	@Column(name = "inspiration")
 	private String inspiration;
 	
 	//for key column referencing role_id in user_roles table
@@ -62,8 +62,6 @@ public class Recipes {
 	//list of recipe steps mapped to association table recipe_steps
 	@OneToMany(mappedBy = "recipe", targetEntity = RecipeSteps.class)
 	private List<RecipeSteps> recipeSteps;
-
-	
 	
 	//boiler plate
 	public Recipes() {
@@ -186,6 +184,14 @@ public class Recipes {
 	public void setInspiration(String inspiration) {
 		this.inspiration = inspiration;
 	}
+	
+	public Users getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Users userId) {
+		this.userId = userId;
+	}
 
 	public List<RecipeIngrediants> getRecipeIngrediants() {
 		return recipeIngrediants;
@@ -202,6 +208,7 @@ public class Recipes {
 	public void setRecipeSteps(List<RecipeSteps> recipeSteps) {
 		this.recipeSteps = recipeSteps;
 	}
+	
 	
 	
 }
