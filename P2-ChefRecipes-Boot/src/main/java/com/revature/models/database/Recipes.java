@@ -47,7 +47,7 @@ public class Recipes {
 	private String category;
 	
 	//column for inspiration
-	@Column(name = "insiration")
+	@Column(name = "inspiration")
 	private String inspiration;
 	
 	//for key column referencing role_id in user_roles table
