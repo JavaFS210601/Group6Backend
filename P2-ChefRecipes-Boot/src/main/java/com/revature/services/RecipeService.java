@@ -11,9 +11,11 @@ import com.revature.daos.RecipeIngrediantsDAOInterface;
 import com.revature.daos.RecipeStepsDAOInterface;
 import com.revature.daos.RecipeTransferDAO;
 import com.revature.daos.RecipesDAOInterface;
+import com.revature.daos.StepsDAOInterface;
 import com.revature.daos.UserDAOInterface;
 import com.revature.models.database.Ingrediants;
 import com.revature.models.database.Recipes;
+import com.revature.models.database.Steps;
 import com.revature.models.database.Users;
 import com.revature.models.database.associations.RecipeIngrediants;
 import com.revature.models.database.associations.RecipeSteps;
@@ -27,19 +29,20 @@ public class RecipeService {
 	private RecipeTransferDAO recTransferDAO;
 	private IngrediantDAOInterface ingDAO;
 	private RecipeIngrediantsDAOInterface ingRecDAO;
-	private RecipeStepsDAOInterface ingRecStepDAO;
+	private RecipeStepsDAOInterface stepRecDAO;
+	private StepsDAOInterface stepDAO;
 	
 	@Autowired
-	public RecipeService(RecipesDAOInterface recipesDAO, UserDAOInterface userDAO, 
-			RecipeTransferDAO recTransferDAO, IngrediantDAOInterface ingDAO,
-			RecipeIngrediantsDAOInterface ingRecDAO,  RecipeStepsDAOInterface ingRecStepDAO) {
+	public RecipeService(RecipesDAOInterface recipesDAO, UserDAOInterface userDAO, RecipeTransferDAO recTransferDAO,
+			IngrediantDAOInterface ingDAO, RecipeIngrediantsDAOInterface ingRecDAO,  RecipeStepsDAOInterface stepRecDAO,  StepsDAOInterface stepDAO) {
 		super();
 		this.recipesDAO = recipesDAO;
 		this.userDAO = userDAO;
 		this.recTransferDAO = recTransferDAO;
 		this.ingDAO = ingDAO;
 		this.ingRecDAO = ingRecDAO;
-		this.ingRecStepDAO = ingRecStepDAO;
+		this.stepRecDAO = stepRecDAO;
+		this.stepDAO = stepDAO;
 	}
 
 	public List<Recipes> getAllRecipes() {
@@ -112,6 +115,24 @@ public class RecipeService {
 			ingRecDAO.save(recIng);
 		}
 		
+		//inserting steps
+		recipeString = recipeDTO.getSteps();
+		String[] stepList = recipeString.split("_");
+		for(String item : stepList) {
+			Steps step = new Steps(item);
+			
+			Steps savedStep = stepDAO.save(step);
+			
+			RecipeSteps recStep = new RecipeSteps();
+			
+			recStep.setStep_id(step);
+			recStep.setRecipe_id(recipe);
+			
+			stepRecDAO.save(recStep);
+		}
+		
+		
+		
 		if(insertedRec != null) {
 //			RecipeIngrediants recIng = new RecipeIngrediants();
 //			RecipeSteps recStep = new RecipeSteps();
@@ -142,7 +163,7 @@ public class RecipeService {
 
 	public List<RecipeSteps> getThridStepTable() {
 		
-		return ingRecStepDAO.findAll();
+		return stepRecDAO.findAll();
 	}
 
 //	public boolean insertIngrediants(List<Ingrediants> ingrediants, int id) {

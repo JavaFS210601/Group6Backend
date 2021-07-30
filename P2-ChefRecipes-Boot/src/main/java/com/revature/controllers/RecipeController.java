@@ -69,8 +69,8 @@ public class RecipeController {
 			List<RecipeSteps> thirdStepTable = service.getThridStepTable();
 			List<Steps> stepList = new ArrayList<Steps>();
 			for (RecipeSteps s :  thirdStepTable ) {
-				if (s.getRecipe().getRecipe_id() == theID)  {
-					stepList.add(s.getStep());
+				if (s.getRecipe_id().getRecipe_id() == theID)  {
+					stepList.add(s.getStep_id());
 				}
 				
 			}
@@ -88,24 +88,7 @@ public class RecipeController {
 			recipeDTOList.add(recipeDTO);
 			
 			index++;
-		}
-			
-			String ingrediants = "";
-//			for (int i = 0; i < recipe.getRecipeIngrediants().size(); i++ ) {
-//				ingrediants = "" + recipe.getRecipeIngrediants().get(i).getIngrediant() + " " ;
-//						 
-//						
-//			}
-//								
-//			String steps = "";
-//			for (int i = 0; i < recipe.getRecipeSteps().size(); i++ ) {
-//				steps = "" + recipe.getRecipeSteps().get(0).getStep().getStep() + " "; 
-//						
-//			}
-			System.out.println(" ingrediant list:" + ingrediants + " steps: " );
-			
-			
-			
+		}	
 			
 			
 			return ResponseEntity.status(200).body(recipeDTOList);
