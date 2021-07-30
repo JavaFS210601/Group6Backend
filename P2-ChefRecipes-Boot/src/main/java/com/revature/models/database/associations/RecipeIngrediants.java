@@ -16,7 +16,7 @@ import com.revature.models.database.associations.embeddables.RecipeIngediantsKey
 public class RecipeIngrediants {
 	
 	@EmbeddedId
-	RecipeIngediantsKey compositeId;
+	RecipeIngediantsKey compositeId = new RecipeIngediantsKey();
 	
 	@ManyToOne
 	@MapsId("ingrediant_id")

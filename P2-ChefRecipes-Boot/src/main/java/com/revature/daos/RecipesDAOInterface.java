@@ -20,8 +20,6 @@ import com.revature.models.dtos.RecipeDTO;
 @Repository
 public interface RecipesDAOInterface extends JpaRepository<Recipes, Integer> {
 	Optional<List<Recipes>> findByUserId(Users user);
-	
-	boolean save(List<Ingrediants> ingrediant);
 
 }
 
