@@ -47,6 +47,7 @@ public class RecipeService {
 
 	public List<Recipes> getAllRecipes() {
 		List<Recipes> recipes = recipesDAO.findAll();
+		
 		return recipes;
 	}
 
@@ -152,6 +153,17 @@ public class RecipeService {
 			return true;
 		}
 		return false;
+	}
+
+	public List<RecipeIngrediants> getThridTable() {
+		
+		
+		return ingRecDAO.findAll();
+	}
+
+	public List<RecipeSteps> getThridStepTable() {
+		
+		return stepRecDAO.findAll();
 	}
 
 //	public boolean insertIngrediants(List<Ingrediants> ingrediants, int id) {
