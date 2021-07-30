@@ -50,10 +50,10 @@ public class RecipeController {
 		
 	}
 	
-	@PostMapping("/{id}")
-	public ResponseEntity<RecipeDTO> insertRecipe(@RequestBody RecipeDTO recipeDTO, @PathVariable("id") int id){
+	@PostMapping
+	public ResponseEntity<RecipeDTO> insertRecipe(@RequestBody RecipeDTO recipeDTO){
 		
-		if(!service.insertRecipe(recipeDTO, id)) {
+		if(!service.insertRecipe(recipeDTO)) {
 			return ResponseEntity.status(500).build();
 		}
 		return ResponseEntity.status(201).build();

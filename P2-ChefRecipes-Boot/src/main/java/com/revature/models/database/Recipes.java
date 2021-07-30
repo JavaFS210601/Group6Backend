@@ -2,6 +2,7 @@
 //Date: 7/24/2021
 package com.revature.models.database;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -50,6 +51,12 @@ public class Recipes {
 	@Column(name = "inspiration")
 	private String inspiration;
 	
+	@Column(name = "ingrediants")
+	private String ingrediants;
+	
+	@Column(name = "steps")
+	private String steps;
+	
 	//for key column referencing role_id in user_roles table
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Users.class)
 	@JoinColumn(name = "user_id")
@@ -57,11 +64,11 @@ public class Recipes {
 	
 	//list of ingrediants mapped to association table recipe_ingediants
 	@OneToMany(mappedBy = "recipe", targetEntity = RecipeIngrediants.class)
-	private List<RecipeIngrediants> recipeIngrediants;
+	private List<RecipeIngrediants> recipeIngrediants = new ArrayList();;
 	
 	//list of recipe steps mapped to association table recipe_steps
 	@OneToMany(mappedBy = "recipe", targetEntity = RecipeSteps.class)
-	private List<RecipeSteps> recipeSteps;
+	private List<RecipeSteps> recipeSteps = new ArrayList();;
 	
 	//boiler plate
 	public Recipes() {
@@ -83,8 +90,7 @@ public class Recipes {
 	@Override
 	public String toString() {
 		return "Recipes [recipe_id=" + recipe_id + ", name=" + name + ", description=" + description + ", category="
-				+ category + ", inspiration=" + inspiration + ", recipeIngrediants=" + recipeIngrediants
-				+ ", recipeSteps=" + recipeSteps + "]";
+				+ category + ", inspiration=" + inspiration + "]";
 	}
 
 	@Override

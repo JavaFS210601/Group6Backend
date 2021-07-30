@@ -1,5 +1,6 @@
 package com.revature.models.database;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -31,7 +32,7 @@ public class Steps {
 	//
 	//list of recipe steps mapped to association table recipe_steps
 	@OneToMany(mappedBy = "step", targetEntity = RecipeSteps.class)
-	private List<RecipeSteps> recipeSteps;
+	private List<RecipeSteps> recipeSteps = new ArrayList();;
 
 	
 	
@@ -49,7 +50,7 @@ public class Steps {
 
 	@Override
 	public String toString() {
-		return "Steps [step_id=" + step_id + ", step=" + step + ", recipeSteps=" + recipeSteps + "]";
+		return "Steps [step_id=" + step_id + ", step=" + step + "]";
 	}
 
 	@Override
