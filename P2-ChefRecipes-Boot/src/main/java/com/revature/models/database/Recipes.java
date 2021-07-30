@@ -23,9 +23,9 @@ import com.revature.models.database.associations.RecipeSteps;
 
 //database model for the recipes 
 @Entity
-@JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class, 
-		property = "recipe_id")
+//@JsonIdentityInfo(
+//		generator = ObjectIdGenerators.PropertyGenerator.class, 
+//		property = "recipe_id")
 @Table(name = "recipes")
 public class Recipes {
 	
@@ -51,24 +51,24 @@ public class Recipes {
 	@Column(name = "inspiration")
 	private String inspiration;
 	
-	@Column(name = "ingrediants")
-	private String ingrediants;
-	
-	@Column(name = "steps")
-	private String steps;
+//	@Column(name = "ingrediants")
+//	private String ingrediants;
+//	
+//	@Column(name = "steps")
+//	private String steps;
 	
 	//for key column referencing role_id in user_roles table
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Users.class)
 	@JoinColumn(name = "user_id")
 	private Users userId;
 	
-	//list of ingrediants mapped to association table recipe_ingediants
-	@OneToMany(mappedBy = "recipe", targetEntity = RecipeIngrediants.class)
-	private List<RecipeIngrediants> recipeIngrediants = new ArrayList();;
-	
-	//list of recipe steps mapped to association table recipe_steps
-	@OneToMany(mappedBy = "recipe", targetEntity = RecipeSteps.class)
-	private List<RecipeSteps> recipeSteps = new ArrayList();;
+//	//list of ingrediants mapped to association table recipe_ingediants
+//	@OneToMany(mappedBy = "recipe_id", targetEntity = RecipeIngrediants.class)
+//	private List<RecipeIngrediants> recipeIngrediants = new ArrayList();;
+//	
+//	//list of recipe steps mapped to association table recipe_steps
+//	@OneToMany(mappedBy = "recipe", targetEntity = RecipeSteps.class)
+//	private List<RecipeSteps> recipeSteps = new ArrayList();;
 	
 	//boiler plate
 	public Recipes() {
@@ -76,21 +76,19 @@ public class Recipes {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Recipes(String name, String description, String category, String inspiration,
-			List<RecipeIngrediants> recipeIngrediants, List<RecipeSteps> recipeSteps) {
+	public Recipes(String name, String description, String category, String inspiration, Users userId) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.category = category;
 		this.inspiration = inspiration;
-		this.recipeIngrediants = recipeIngrediants;
-		this.recipeSteps = recipeSteps;
+		this.userId = userId;
 	}
 
 	@Override
 	public String toString() {
 		return "Recipes [recipe_id=" + recipe_id + ", name=" + name + ", description=" + description + ", category="
-				+ category + ", inspiration=" + inspiration + "]";
+				+ category + ", inspiration=" + inspiration + ", userId=" + userId + "]";
 	}
 
 	@Override
@@ -101,9 +99,8 @@ public class Recipes {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((inspiration == null) ? 0 : inspiration.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((recipeIngrediants == null) ? 0 : recipeIngrediants.hashCode());
-		result = prime * result + ((recipeSteps == null) ? 0 : recipeSteps.hashCode());
 		result = prime * result + recipe_id;
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -136,17 +133,12 @@ public class Recipes {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (recipeIngrediants == null) {
-			if (other.recipeIngrediants != null)
-				return false;
-		} else if (!recipeIngrediants.equals(other.recipeIngrediants))
-			return false;
-		if (recipeSteps == null) {
-			if (other.recipeSteps != null)
-				return false;
-		} else if (!recipeSteps.equals(other.recipeSteps))
-			return false;
 		if (recipe_id != other.recipe_id)
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
 	}
@@ -190,29 +182,13 @@ public class Recipes {
 	public void setInspiration(String inspiration) {
 		this.inspiration = inspiration;
 	}
-	
+
 	public Users getUserId() {
 		return userId;
 	}
 
 	public void setUserId(Users userId) {
 		this.userId = userId;
-	}
-
-	public List<RecipeIngrediants> getRecipeIngrediants() {
-		return recipeIngrediants;
-	}
-
-	public void setRecipeIngrediants(List<RecipeIngrediants> recipeIngrediants) {
-		this.recipeIngrediants = recipeIngrediants;
-	}
-
-	public List<RecipeSteps> getRecipeSteps() {
-		return recipeSteps;
-	}
-
-	public void setRecipeSteps(List<RecipeSteps> recipeSteps) {
-		this.recipeSteps = recipeSteps;
 	}
 	
 	

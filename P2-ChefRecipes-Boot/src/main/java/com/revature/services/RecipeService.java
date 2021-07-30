@@ -88,18 +88,18 @@ public class RecipeService {
 			//create ingrediants object using the separated ingrediant and amount
 			Ingrediants ing = new Ingrediants(ingrediantProperties[0], ingrediantProperties[1]);
 			
-			//save ingrediants to the database and return an entity of the inserted ingrediante
+			//save ingrediants to the database and return an entity of the inserted ingrediantew
 			Ingrediants ingrediant = ingDAO.save(ing);
 			
 			//create association table
 			RecipeIngrediants recIng = new RecipeIngrediants();
 			//assign recipe and ingrediants objects
-			recIng.setIngrediant(ing);
-			recIng.setRecipe(recipe);
+			recIng.setIngrediant_id(ing);
+			recIng.setRecipe_id(recipe);
 			
 			//add associated ingrediants and recipes to the lists in there appriate tables
-			ingrediant.getRecipeIngrediants().add(recIng);
-			recipe.getRecipeIngrediants().add(recIng);
+//			ingrediant.getRecipeIngrediants().add(recIng);
+//			recipe.getRecipeIngrediants().add(recIng);
 			
 			//save association table to the database
 			ingRecDAO.save(recIng);
