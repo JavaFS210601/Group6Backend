@@ -12,7 +12,6 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class RecipeIngediantsKey implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "ingrediant_id")
 	private int ingrediant_id;
