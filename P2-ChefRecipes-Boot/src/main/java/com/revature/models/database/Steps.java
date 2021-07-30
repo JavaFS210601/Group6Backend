@@ -16,9 +16,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.revature.models.database.associations.RecipeSteps;
 
 @Entity
-@JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class, 
-		property = "step_id")
+//@JsonIdentityInfo(
+//		generator = ObjectIdGenerators.PropertyGenerator.class, 
+//		property = "step_id")
 @Table(name= "steps")
 public class Steps {
 
@@ -29,10 +29,10 @@ public class Steps {
 	
 	@Column(name = "step")
 	private String step;
-	//
-	//list of recipe steps mapped to association table recipe_steps
-	@OneToMany(mappedBy = "step", targetEntity = RecipeSteps.class)
-	private List<RecipeSteps> recipeSteps = new ArrayList();;
+//	//
+//	//list of recipe steps mapped to association table recipe_steps
+//	@OneToMany(mappedBy = "step", targetEntity = RecipeSteps.class)
+//	private List<RecipeSteps> recipeSteps = new ArrayList();;
 
 	
 	
@@ -42,26 +42,32 @@ public class Steps {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Steps(String step, List<RecipeSteps> recipeSteps) {
+
+
+	public Steps(String step) {
 		super();
 		this.step = step;
-		this.recipeSteps = recipeSteps;
 	}
+
+
 
 	@Override
 	public String toString() {
 		return "Steps [step_id=" + step_id + ", step=" + step + "]";
 	}
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((recipeSteps == null) ? 0 : recipeSteps.hashCode());
 		result = prime * result + ((step == null) ? 0 : step.hashCode());
 		result = prime * result + step_id;
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -72,11 +78,6 @@ public class Steps {
 		if (getClass() != obj.getClass())
 			return false;
 		Steps other = (Steps) obj;
-		if (recipeSteps == null) {
-			if (other.recipeSteps != null)
-				return false;
-		} else if (!recipeSteps.equals(other.recipeSteps))
-			return false;
 		if (step == null) {
 			if (other.step != null)
 				return false;
@@ -87,29 +88,30 @@ public class Steps {
 		return true;
 	}
 
-	public String getStep() {
-		return step;
-	}
 
-	public void setStep(String step) {
-		this.step = step;
-	}
-
-	public List<RecipeSteps> getRecipeSteps() {
-		return recipeSteps;
-	}
-
-	public void setRecipeSteps(List<RecipeSteps> recipeSteps) {
-		this.recipeSteps = recipeSteps;
-	}
 
 	public int getStep_id() {
 		return step_id;
 	}
 
+
+
 	public void setStep_id(int step_id) {
 		this.step_id = step_id;
 	}
-	
+
+
+
+	public String getStep() {
+		return step;
+	}
+
+
+
+	public void setStep(String step) {
+		this.step = step;
+	}
+
+
 	
 }
