@@ -36,8 +36,10 @@ public class RecipeDTO {
 	
 	@Column(name = "user_id")
 	private int userIdDTO;
-//	private Ingrediants[] ingrediants;
-//	private Steps[] steps;
+	
+    private Ingrediants[] ingrediants;
+    
+    private Steps[] steps;
 
 	public RecipeDTO() {
 		super();
