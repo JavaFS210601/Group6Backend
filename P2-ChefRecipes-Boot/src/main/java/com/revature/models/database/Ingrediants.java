@@ -16,9 +16,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.revature.models.database.associations.RecipeIngrediants;
 
 @Entity
-@JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class, 
-		property = "ingrediant_id")
+//@JsonIdentityInfo(
+//		generator = ObjectIdGenerators.PropertyGenerator.class, 
+//		property = "ingrediant_id")
 @Table(name= "ingrediants")
 public class Ingrediants {
 	
@@ -33,11 +33,11 @@ public class Ingrediants {
 	@Column(name = "ammount")
 	private String ammount;
 	
-	//list of ingrediants mapped to association table recipe_ingediants
-	@OneToMany(mappedBy = "ingrediant", targetEntity = RecipeIngrediants.class)
-	private List<RecipeIngrediants> recipeIngrediants = new ArrayList<RecipeIngrediants>();
-
-	
+//	//list of ingrediants mapped to association table recipe_ingediants
+//	@OneToMany(mappedBy = "ingrediant_id", targetEntity = RecipeIngrediants.class)
+//	private List<RecipeIngrediants> recipeIngrediants = new ArrayList();
+//
+//	
 	
 	//boiler plate
 	public Ingrediants() {
@@ -51,16 +51,10 @@ public class Ingrediants {
 		this.ammount = ammount;
 	}
 
-	public Ingrediants(String ingrediant, String ammount, List<RecipeIngrediants> recipeIngrediants) {
-		super();
-		this.ingrediant = ingrediant;
-		this.ammount = ammount;
-		this.recipeIngrediants = recipeIngrediants;
-	}
-
 	@Override
 	public String toString() {
-		return "Ingrediants [ingrediante_id=" + ingrediant_id + ", ingrediant=" + ingrediant + ", ammount=" + ammount + "]";
+		return "Ingrediants [ingrediant_id=" + ingrediant_id + ", ingrediant=" + ingrediant + ", ammount=" + ammount
+				+ "]";
 	}
 
 	@Override
@@ -70,7 +64,6 @@ public class Ingrediants {
 		result = prime * result + ((ammount == null) ? 0 : ammount.hashCode());
 		result = prime * result + ((ingrediant == null) ? 0 : ingrediant.hashCode());
 		result = prime * result + ingrediant_id;
-		result = prime * result + ((recipeIngrediants == null) ? 0 : recipeIngrediants.hashCode());
 		return result;
 	}
 
@@ -95,20 +88,15 @@ public class Ingrediants {
 			return false;
 		if (ingrediant_id != other.ingrediant_id)
 			return false;
-		if (recipeIngrediants == null) {
-			if (other.recipeIngrediants != null)
-				return false;
-		} else if (!recipeIngrediants.equals(other.recipeIngrediants))
-			return false;
 		return true;
 	}
 
-	public int getIngrediante_id() {
+	public int getIngrediant_id() {
 		return ingrediant_id;
 	}
 
-	public void setIngrediante_id(int ingrediante_id) {
-		this.ingrediant_id = ingrediante_id;
+	public void setIngrediant_id(int ingrediant_id) {
+		this.ingrediant_id = ingrediant_id;
 	}
 
 	public String getIngrediant() {
@@ -125,14 +113,6 @@ public class Ingrediants {
 
 	public void setAmmount(String ammount) {
 		this.ammount = ammount;
-	}
-
-	public List<RecipeIngrediants> getRecipeIngrediants() {
-		return recipeIngrediants;
-	}
-
-	public void setRecipeIngrediants(List<RecipeIngrediants> recipeIngrediants) {
-		this.recipeIngrediants = recipeIngrediants;
 	}
 	
 	
