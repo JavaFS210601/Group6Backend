@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.daos.IngrediantDAOInterface;
 import com.revature.daos.RecipeIngrediantsDAOInterface;
+import com.revature.daos.RecipeStepsDAOInterface;
 import com.revature.daos.RecipeTransferDAO;
 import com.revature.daos.RecipesDAOInterface;
 import com.revature.daos.UserDAOInterface;
@@ -15,6 +16,7 @@ import com.revature.models.database.Ingrediants;
 import com.revature.models.database.Recipes;
 import com.revature.models.database.Users;
 import com.revature.models.database.associations.RecipeIngrediants;
+import com.revature.models.database.associations.RecipeSteps;
 import com.revature.models.dtos.RecipeDTO;
 
 @Service
@@ -25,15 +27,19 @@ public class RecipeService {
 	private RecipeTransferDAO recTransferDAO;
 	private IngrediantDAOInterface ingDAO;
 	private RecipeIngrediantsDAOInterface ingRecDAO;
+	private RecipeStepsDAOInterface ingRecStepDAO;
 	
 	@Autowired
-	public RecipeService(RecipesDAOInterface recipesDAO, UserDAOInterface userDAO, RecipeTransferDAO recTransferDAO, IngrediantDAOInterface ingDAO, RecipeIngrediantsDAOInterface ingRecDAO) {
+	public RecipeService(RecipesDAOInterface recipesDAO, UserDAOInterface userDAO, 
+			RecipeTransferDAO recTransferDAO, IngrediantDAOInterface ingDAO,
+			RecipeIngrediantsDAOInterface ingRecDAO,  RecipeStepsDAOInterface ingRecStepDAO) {
 		super();
 		this.recipesDAO = recipesDAO;
 		this.userDAO = userDAO;
 		this.recTransferDAO = recTransferDAO;
 		this.ingDAO = ingDAO;
 		this.ingRecDAO = ingRecDAO;
+		this.ingRecStepDAO = ingRecStepDAO;
 	}
 
 	public List<Recipes> getAllRecipes() {
@@ -126,6 +132,17 @@ public class RecipeService {
 			return true;
 		}
 		return false;
+	}
+
+	public List<RecipeIngrediants> getThridTable() {
+		
+		
+		return ingRecDAO.findAll();
+	}
+
+	public List<RecipeSteps> getThridStepTable() {
+		
+		return ingRecStepDAO.findAll();
 	}
 
 //	public boolean insertIngrediants(List<Ingrediants> ingrediants, int id) {

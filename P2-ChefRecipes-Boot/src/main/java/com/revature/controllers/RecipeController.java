@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.models.database.Ingrediants;
 import com.revature.models.database.Recipes;
+import com.revature.models.database.Steps;
+import com.revature.models.database.associations.RecipeIngrediants;
+import com.revature.models.database.associations.RecipeSteps;
 import com.revature.models.dtos.RecipeDTO;
 import com.revature.models.dtos.RecipeResponseDTO;
 import com.revature.services.RecipeService;
@@ -32,41 +37,79 @@ public class RecipeController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Recipes>> getAllRecipes(){
+	public ResponseEntity<List<RecipeResponseDTO>> getAllRecipes(){
 		
 		
 		List<Recipes> recipeList = service.getAllRecipes();
 		System.out.println(recipeList);
 		
-		RecipeResponseDTO recipeDTO = new RecipeResponseDTO(); 
+		List<RecipeResponseDTO> recipeDTOList = new ArrayList<RecipeResponseDTO>();
 		int index = 0;
 		for( Recipes recipe : recipeList  ) {
+			RecipeResponseDTO recipeDTO = new RecipeResponseDTO(); 
 			recipeDTO.setRecipe_id(recipe.getRecipe_id());
 			recipeDTO.setCategory(recipe.getCategory());
 			recipeDTO.setInspiration(recipe.getInspiration());
 			recipeDTO.setName(recipe.getName());
 			recipeDTO.setDescription(recipe.getDescription());
 			
-			String ingrediants = "";
-			for (int i = 0; i < recipe.getRecipeIngrediants().size(); i++ ) {
-				ingrediants = "" + recipe.getRecipeIngrediants().get(i).getIngrediant() + " " ;
-						 
-						
+
+			// Ingrediants
+			List<RecipeIngrediants> thirdTable = service.getThridTable();
+			List<Ingrediants> ingrediantList = new ArrayList<Ingrediants>();
+			int theID = recipe.getRecipe_id();
+			for (RecipeIngrediants r :  thirdTable ) {
+				if (r.getRecipe_id().getRecipe_id() == theID)  {
+					ingrediantList.add(r.getIngrediant_id());
+				}
+				
 			}
-								
-			String steps = "";
-			for (int i = 0; i < recipe.getRecipeSteps().size(); i++ ) {
-				steps = "" + recipe.getRecipeSteps().get(0).getStep().getStep() + " "; 
-						
+			
+			// Steps
+			List<RecipeSteps> thirdStepTable = service.getThridStepTable();
+			List<Steps> stepList = new ArrayList<Steps>();
+			for (RecipeSteps s :  thirdStepTable ) {
+				if (s.getRecipe().getRecipe_id() == theID)  {
+					stepList.add(s.getStep());
+				}
+				
 			}
-			System.out.println(" ingrediant list:" + ingrediants + " steps: " + steps);
-			recipeDTO.setIngrediants(ingrediants);
-			recipeDTO.setSteps(steps);
+			recipeDTO.setIngrediants(ingrediantList);
+			recipeDTO.setSteps(stepList);
+				// Checking ingrediant list
+			for( Ingrediants i : ingrediantList) {
+				System.out.println(i.getIngrediant());
+			}
+			
+			for( Steps s : stepList) {
+				System.out.println(s.getStep_id());
+			}
+			
+			recipeDTOList.add(recipeDTO);
 			
 			index++;
 		}
-		
-		return ResponseEntity.status(200).body(service.getAllRecipes());
+			
+			String ingrediants = "";
+//			for (int i = 0; i < recipe.getRecipeIngrediants().size(); i++ ) {
+//				ingrediants = "" + recipe.getRecipeIngrediants().get(i).getIngrediant() + " " ;
+//						 
+//						
+//			}
+//								
+//			String steps = "";
+//			for (int i = 0; i < recipe.getRecipeSteps().size(); i++ ) {
+//				steps = "" + recipe.getRecipeSteps().get(0).getStep().getStep() + " "; 
+//						
+//			}
+			System.out.println(" ingrediant list:" + ingrediants + " steps: " );
+			
+			
+			
+			
+			
+			return ResponseEntity.status(200).body(recipeDTOList);
+		//return ResponseEntity.status(200).body(service.getAllRecipes());
 	}
 	
 	@GetMapping("/{id}")

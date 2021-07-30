@@ -1,6 +1,7 @@
 package com.revature.models.dtos;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import com.revature.models.database.Ingrediants;
@@ -14,9 +15,10 @@ public class RecipeResponseDTO {
 	   String description;
 	   String category;
 	   String inspiration;
-	   String ingrediants;
-	   String steps;
-	   
+//	   String ingrediants;
+//	   String steps;
+	   List<Ingrediants> ingrediants;
+	   List<Steps> steps;
 	   
 	public RecipeResponseDTO() {
 		super();
@@ -24,8 +26,10 @@ public class RecipeResponseDTO {
 	}
 
 
+
+
 	public RecipeResponseDTO(String name, String description, String category, String inspiration,
-			String ingrediants, String steps) {
+			List<Ingrediants> ingrediants, List<Steps> steps) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -36,8 +40,10 @@ public class RecipeResponseDTO {
 	}
 
 
+
+
 	public RecipeResponseDTO(int recipe_id, String name, String description, String category, String inspiration,
-			String ingrediants, String steps) {
+			List<Ingrediants> ingrediants, List<Steps> steps) {
 		super();
 		this.recipe_id = recipe_id;
 		this.name = name;
@@ -49,29 +55,20 @@ public class RecipeResponseDTO {
 	}
 
 
-	
 
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(category, description, ingrediants, inspiration, name, recipe_id, steps);
+	public void setIngrediants(List<Ingrediants> ingrediants) {
+		this.ingrediants = ingrediants;
 	}
 
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RecipeResponseDTO other = (RecipeResponseDTO) obj;
-		return Objects.equals(category, other.category) && Objects.equals(description, other.description)
-				&& Objects.equals(ingrediants, other.ingrediants) && Objects.equals(inspiration, other.inspiration)
-				&& Objects.equals(name, other.name) && recipe_id == other.recipe_id
-				&& Objects.equals(steps, other.steps);
+
+
+	public void setSteps(List<Steps> steps) {
+		this.steps = steps;
 	}
+
+
 
 
 	public int getRecipe_id() {
@@ -119,29 +116,28 @@ public class RecipeResponseDTO {
 	}
 
 
+
+
+	public List<Ingrediants> getIngrediants() {
+		return ingrediants;
+	}
+
+
+
+
+	public List<Steps> getSteps() {
+		return steps;
+	}
+
+
+
+
 	public void setInspiration(String inspiration) {
 		this.inspiration = inspiration;
 	}
 
 
-	public String getIngrediants() {
-		return ingrediants;
-	}
 
-
-	public void setIngrediants(String ingrediants) {
-		this.ingrediants = ingrediants;
-	}
-
-
-	public String getSteps() {
-		return steps;
-	}
-
-
-	public void setSteps(String steps) {
-		this.steps = steps;
-	}
    
 	   
 }
