@@ -51,24 +51,26 @@ public class Recipes {
 	@Column(name = "inspiration")
 	private String inspiration;
 	
-	@Column(name = "ingrediants")
-	private String ingrediants;
-	
-	@Column(name = "steps")
-	private String steps;
+//	@Column(name = "ingrediants")
+//	private String ingrediants;
+//	
+//	@Column(name = "steps")
+//	private String steps;
 	
 	//for key column referencing role_id in user_roles table
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Users.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class)
 	@JoinColumn(name = "user_id")
 	private Users userId;
 	
 	//list of ingrediants mapped to association table recipe_ingediants
 	@OneToMany(mappedBy = "recipe", targetEntity = RecipeIngrediants.class)
-	private List<RecipeIngrediants> recipeIngrediants = new ArrayList();;
+	private List<RecipeIngrediants> recipeIngrediants;
+	//= new ArrayList<RecipeIngrediants>();
 	
 	//list of recipe steps mapped to association table recipe_steps
 	@OneToMany(mappedBy = "recipe", targetEntity = RecipeSteps.class)
-	private List<RecipeSteps> recipeSteps = new ArrayList();;
+	private List<RecipeSteps> recipeSteps;
+	//= new ArrayList<RecipeSteps>();
 	
 	//boiler plate
 	public Recipes() {

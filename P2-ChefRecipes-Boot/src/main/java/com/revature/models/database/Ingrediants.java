@@ -35,7 +35,7 @@ public class Ingrediants {
 	
 	//list of ingrediants mapped to association table recipe_ingediants
 	@OneToMany(mappedBy = "ingrediant", targetEntity = RecipeIngrediants.class)
-	private List<RecipeIngrediants> recipeIngrediants = new ArrayList();
+	private List<RecipeIngrediants> recipeIngrediants = new ArrayList<RecipeIngrediants>();
 
 	
 	

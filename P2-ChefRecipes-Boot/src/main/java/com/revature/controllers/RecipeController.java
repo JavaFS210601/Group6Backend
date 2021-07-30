@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.database.Recipes;
 import com.revature.models.dtos.RecipeDTO;
+import com.revature.models.dtos.RecipeResponseDTO;
 import com.revature.services.RecipeService;
 
 @RestController
@@ -32,6 +33,39 @@ public class RecipeController {
 	
 	@GetMapping
 	public ResponseEntity<List<Recipes>> getAllRecipes(){
+		
+		
+		List<Recipes> recipeList = service.getAllRecipes();
+		System.out.println(recipeList);
+		
+		RecipeResponseDTO recipeDTO = new RecipeResponseDTO(); 
+		int index = 0;
+		for( Recipes recipe : recipeList  ) {
+			recipeDTO.setRecipe_id(recipe.getRecipe_id());
+			recipeDTO.setCategory(recipe.getCategory());
+			recipeDTO.setInspiration(recipe.getInspiration());
+			recipeDTO.setName(recipe.getName());
+			recipeDTO.setDescription(recipe.getDescription());
+			
+			String ingrediants = "";
+			for (int i = 0; i < recipe.getRecipeIngrediants().size(); i++ ) {
+				ingrediants = "" + recipe.getRecipeIngrediants().get(i).getIngrediant() + " " ;
+						 
+						
+			}
+								
+			String steps = "";
+			for (int i = 0; i < recipe.getRecipeSteps().size(); i++ ) {
+				steps = "" + recipe.getRecipeSteps().get(0).getStep().getStep() + " "; 
+						
+			}
+			System.out.println(" ingrediant list:" + ingrediants + " steps: " + steps);
+			recipeDTO.setIngrediants(ingrediants);
+			recipeDTO.setSteps(steps);
+			
+			index++;
+		}
+		
 		return ResponseEntity.status(200).body(service.getAllRecipes());
 	}
 	

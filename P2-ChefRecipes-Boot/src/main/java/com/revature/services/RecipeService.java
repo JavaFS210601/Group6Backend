@@ -38,6 +38,7 @@ public class RecipeService {
 
 	public List<Recipes> getAllRecipes() {
 		List<Recipes> recipes = recipesDAO.findAll();
+		
 		return recipes;
 	}
 
