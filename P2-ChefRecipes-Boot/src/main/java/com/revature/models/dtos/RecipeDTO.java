@@ -22,6 +22,9 @@ public class RecipeDTO {
 	@Column(name = "id")
 	private int id;
 	
+	@Column(name = "recipe_id")
+	private int recipeId;
+	
 	@Column(name = "name")
 	private String name;
 	
@@ -36,15 +39,17 @@ public class RecipeDTO {
 	
 	@Column(name = "user_id")
 	private int userId;
+	
 	private String ingrediants;
 	private String steps;
 	public RecipeDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public RecipeDTO(String name, String description, String category, String inspiration, int userId,
+	public RecipeDTO(int recipeId, String name, String description, String category, String inspiration, int userId,
 			String ingrediants, String steps) {
 		super();
+		this.recipeId = recipeId;
 		this.name = name;
 		this.description = description;
 		this.category = category;
@@ -55,9 +60,9 @@ public class RecipeDTO {
 	}
 	@Override
 	public String toString() {
-		return "RecipeDTO [id=" + id + ", name=" + name + ", description=" + description + ", category=" + category
-				+ ", inspiration=" + inspiration + ", userId=" + userId + ", ingrediants=" + ingrediants + ", steps="
-				+ steps + "]";
+		return "RecipeDTO [id=" + id + ", recipeId=" + recipeId + ", name=" + name + ", description=" + description
+				+ ", category=" + category + ", inspiration=" + inspiration + ", userId=" + userId + ", ingrediants="
+				+ ingrediants + ", steps=" + steps + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -69,6 +74,7 @@ public class RecipeDTO {
 		result = prime * result + ((ingrediants == null) ? 0 : ingrediants.hashCode());
 		result = prime * result + ((inspiration == null) ? 0 : inspiration.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + recipeId;
 		result = prime * result + ((steps == null) ? 0 : steps.hashCode());
 		result = prime * result + userId;
 		return result;
@@ -109,6 +115,8 @@ public class RecipeDTO {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (recipeId != other.recipeId)
+			return false;
 		if (steps == null) {
 			if (other.steps != null)
 				return false;
@@ -123,6 +131,12 @@ public class RecipeDTO {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getRecipeId() {
+		return recipeId;
+	}
+	public void setRecipeId(int recipeId) {
+		this.recipeId = recipeId;
 	}
 	public String getName() {
 		return name;
