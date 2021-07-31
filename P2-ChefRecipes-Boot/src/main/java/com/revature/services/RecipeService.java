@@ -1,8 +1,10 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.Integers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -134,26 +136,131 @@ public class RecipeService {
 		
 		
 		if(insertedRec != null) {
-//			RecipeIngrediants recIng = new RecipeIngrediants();
-//			RecipeSteps recStep = new RecipeSteps();
-//			for(Ingrediants ingrediant : ingrediants) {
-//				recipesDAO.save(ingrediant);
-//				recIng.setIngrediant(ingrediant);
-//				recIng.setRecipe(recipe);
-//				ingrediant.getRecipeIngrediants().add(recIng);
-//				recipe.getRecipeIngrediants().add(recIng);
-//			}
-//			for(Steps step : steps) {
-//				recipesDAO.save(step);
-//				recStep.setStep(step);
-//				recStep.setRecipe(recipe);
-//				step.getRecipeSteps().add(recStep);
-//				step.getRecipeSteps().add(recStep);
-//			}
+
 			return true;
 		}
 		return false;
 	}
+
+
+	public boolean updateRecipe(RecipeDTO recipeDTO) {
+		try {
+			System.out.println(recipeDTO);
+			recipesDAO.updateRecipes(recipeDTO.getCategory(), recipeDTO.getDescription(), 
+					recipeDTO.getName(), recipeDTO.getRecipeId());
+			List<RecipeIngrediants> recIngsList = ingRecDAO.findAll();
+			
+			String recipeString = recipeDTO.getIngrediants();
+			
+			String[] ingList = recipeString.split(",");
+//			System.out.println(ingList[1]);
+			
+			ArrayList<Integer> ingrediantCount = new ArrayList<Integer>();
+			
+			int z = 0;
+			for(RecipeIngrediants recIngs : recIngsList) {
+				if(recIngs.getRecipe_id().getRecipe_id() == recipeDTO.getRecipeId()) {
+					ingrediantCount.add(z+=1);
+				}
+			}
+			
+			ArrayList<String> ingrediantProperties = new ArrayList();
+			int t = 0;
+			for(String item : ingList) {
+				String[] temp = item.split("-");
+				ingrediantProperties.add(temp[t]);
+				ingrediantProperties.add(temp[t+1]);
+
+			}
+			System.out.println(ingList.length);
+			System.out.println(ingrediantCount.size());
+			System.out.println(ingrediantProperties.size());
+			
+			int x = 0;
+			for(RecipeIngrediants recIngs : recIngsList) {
+				if(recIngs.getRecipe_id().getRecipe_id() == recipeDTO.getRecipeId()) {
+					Ingrediants ing = recIngs.getIngrediant_id();
+					System.out.println(ing);
+					//System.out.println(ingrediantProperties + " " + ingrediantProperties[x+1]);
+					ingDAO.updateIngrediants(ingrediantProperties.get(x), ingrediantProperties.get(x+1), ing.getIngrediant_id());
+					x+=2;
+				}
+			}
+			//
+			if(ingList.length > ingrediantCount.size()) {
+				for(int s = 0; s < (ingList.length - ingrediantCount.size())*2; s+=2) {
+					Ingrediants ingrediant = new Ingrediants(ingrediantProperties.get(s+(ingrediantCount.size()*2)), ingrediantProperties.get(s+(ingrediantCount.size()*2)+1));
+					
+					Ingrediants savedIngrediant = ingDAO.save(ingrediant);
+					
+					RecipeIngrediants recIng = new RecipeIngrediants();
+					
+					Recipes recipe = recipesDAO.getById(recipeDTO.getRecipeId());
+					
+					recIng.setIngrediant_id(ingrediant);
+					recIng.setRecipe_id(recipe);
+					
+					ingRecDAO.save(recIng);
+				}
+			}
+			
+			
+			
+			List<RecipeSteps> recStepsList = stepRecDAO.findAll();
+			
+			String stepsString = recipeDTO.getSteps();
+			
+			String[] stepList = stepsString.split("_");
+			System.out.println(stepList[1]);
+			
+			ArrayList<Integer> stepsCount = new ArrayList<Integer>();
+			
+			int v = 0;
+			for(RecipeSteps recSteps : recStepsList) {
+				if(recSteps.getRecipe_id().getRecipe_id() == recipeDTO.getRecipeId()) {
+					stepsCount.add(v+=1);
+				}
+			}
+			
+			int y = 0;
+			for(RecipeSteps recSteps : recStepsList) {
+				
+				if(recSteps.getRecipe_id().getRecipe_id() == recipeDTO.getRecipeId()) {
+					Steps step = recSteps.getStep_id();
+					System.out.println(step);
+					//System.out.println(ingrediantProperties + " " + ingrediantProperties[x+1]);
+					stepDAO.updateSteps(stepList[y], step.getStep_id());
+					y+=1;
+				}
+			}
+			if(stepList.length > stepsCount.size()) {
+				for(int s = 0; s < stepList.length - stepsCount.size(); s++) {
+					Steps step = new Steps(stepList[s+stepsCount.size()]);
+					
+					Steps savedStep = stepDAO.save(step);
+					
+					RecipeSteps recStep = new RecipeSteps();
+					
+					Recipes recipe = recipesDAO.getById(recipeDTO.getRecipeId());
+					
+					recStep.setStep_id(step);
+					recStep.setRecipe_id(recipe);
+					
+					stepRecDAO.save(recStep);
+				}
+			}
+			
+			
+			
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+//		recipeDTO.getInspiration(),
+//		stepDAO.updateSteps(recipeDTO);
+		
 
 	public List<RecipeIngrediants> getThridTable() {
 		
@@ -164,6 +271,7 @@ public class RecipeService {
 	public List<RecipeSteps> getThridStepTable() {
 		
 		return stepRecDAO.findAll();
+
 	}
 
 //	public boolean insertIngrediants(List<Ingrediants> ingrediants, int id) {
