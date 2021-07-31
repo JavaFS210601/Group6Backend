@@ -58,7 +58,7 @@ public class Recipes {
 //	private String steps;
 	
 	//for key column referencing role_id in user_roles table
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Users.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class)
 	@JoinColumn(name = "user_id")
 	private Users userId;
 	
