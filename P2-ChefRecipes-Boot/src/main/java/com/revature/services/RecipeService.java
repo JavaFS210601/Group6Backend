@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import com.revature.daos.IngrediantDAOInterface;
@@ -43,6 +45,11 @@ public class RecipeService {
 		this.ingRecDAO = ingRecDAO;
 		this.stepRecDAO = stepRecDAO;
 		this.stepDAO = stepDAO;
+	}
+	
+	public Recipes getRecipeById(int id) {
+		
+		return recipesDAO.findById(id).get();
 	}
 
 	public List<Recipes> getAllRecipes() {
@@ -94,10 +101,13 @@ public class RecipeService {
 		for(String item : ingList) {
 			//split item string on the - and create new array where each element is the separated strings
 			String[] ingrediantProperties = item.split("-");
-			
+			Ingrediants ing;
+			try {
 			//create ingrediants object using the separated ingrediant and amount
-			Ingrediants ing = new Ingrediants(ingrediantProperties[0], ingrediantProperties[1]);
-			
+				 ing = new Ingrediants(ingrediantProperties[0], ingrediantProperties[1]);
+			} catch (ArrayIndexOutOfBoundsException a) {
+				 ing = new Ingrediants("", "");
+			}
 			//save ingrediants to the database and return an entity of the inserted ingrediantew
 			Ingrediants ingrediant = ingDAO.save(ing);
 			
@@ -165,6 +175,23 @@ public class RecipeService {
 		
 		return stepRecDAO.findAll();
 	}
+
+	public List<Recipes> getRecipeByName(String name) {
+		// TODO Auto-generated method stub
+		
+		Recipes recipe  = new Recipes();
+		recipe.setName(name);
+		
+		
+		ExampleMatcher customExampleMatcher = ExampleMatcher.matchingAny()
+			      .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+			      //.withMatcher("password", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+		Example<Recipes> example = Example.of(recipe, customExampleMatcher);
+		
+		return recipesDAO.findAll(example);
+	}
+
+
 
 //	public boolean insertIngrediants(List<Ingrediants> ingrediants, int id) {
 //		//Users user = userDAO.findById(id).get();
