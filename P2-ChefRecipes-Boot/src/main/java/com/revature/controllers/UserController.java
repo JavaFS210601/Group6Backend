@@ -80,7 +80,7 @@ public class UserController {
 		System.out.println(username + " " + password);
 		Users user = new Users();
 		try { 
-			user = service.findUserByUsernameAndPassword(username,  password).get();
+			user = service.findUserByUsernameAndPassword(username,  password);
 			System.out.println("the user  " + user);
 		} catch(NoSuchElementException e) {
 			System.out.println("the user  " + user);
