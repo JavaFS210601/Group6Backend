@@ -80,7 +80,7 @@ public class UserService {
 	}
 
 
-	public Optional<Users> findUserByUsernameAndPassword(String username, String password) {
+	public Users findUserByUsernameAndPassword(String username, String password) {
 		
 		Users user = new Users();
 		user.setUsername(username);
@@ -88,14 +88,25 @@ public class UserService {
 		
 		//ExampleMatcher caseInsensitiveExampleMatcher = ExampleMatcher.matchingAll().withIgnoreCase();
 		ExampleMatcher customExampleMatcher = ExampleMatcher.matchingAny()
-			      .withMatcher("username", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
-			      .withMatcher("password", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+			      .withMatcher("username", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+			      //.withMatcher("password", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
 		Example<Users> example = Example.of(user, customExampleMatcher);
 
 		// find one with example user with only username and password
-		Optional<Users> actual = userDAO.findOne(example);
-
-		return actual;
+		//Optional<Users> actual = userDAO.findOne(example);
+		List<Users> actual = userDAO.findAll(example);
+		if(user == null) {
+            throw new RuntimeException("User does not exist.");
+        }
+		
+		
+		for (int i = 0 ; i< actual.size()  ;i++) {
+	        if(!user.getPassword().equals(actual.get(i))){
+	        	 
+	            throw new RuntimeException("Password mismatch.");
+	        }
+		}
+		return user;
 	}
 
 
