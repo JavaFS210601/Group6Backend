@@ -10,6 +10,8 @@
 
 ## VR diagram
 
+[VR Diagram](https://github.com/JavaFS210601/Group6Backend/blob/kenng/VRdiagram.png)
+
 #### Goals )
 * User login
 * Create new user   ( high )
