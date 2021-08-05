@@ -65,7 +65,10 @@ public class UserController {
 	
 	@PostMapping("/register")
 	public ResponseEntity<Users> registerUser( @RequestBody Users a ) {
-//		
+		
+		// Search to check if the user already exists. 
+		
+		
 		try {
 			service.saveUser(a);
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(a);
