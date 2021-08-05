@@ -1,4 +1,8 @@
 # Group6Backend
+## Description
+
+Recipelify is a Recipe creator which has the ability for the user to create their own recipes with a photo(s) of the recipe ingredients and their amounts, custom ingredients if it is not listed. A way for them to manage their own recipe.
+
 
 ## Tech Stack
 
