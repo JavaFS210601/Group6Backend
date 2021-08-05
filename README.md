@@ -41,3 +41,10 @@ Link to a video of them making the recipe ( optional)
 * Inspiration (Origin story if any)
 * Ingredients amounts (each ingredient, and how much) 
 * Steps
+
+
+### Challenge:
+
+1. Implementing many to many tables with Hibernate 
+2. The json sending to the frontend is too complicated; therefore, DTO is used to simplify the json string
+3. Implement update method which is not porvided by JPA framework
